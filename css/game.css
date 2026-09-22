@@ -1,0 +1,504 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Cinzel:wght@400;700;900&family=IM+Fell+English:ital@0;1&display=swap');
+
+:root {
+  --gold: #c9a84c;
+  --gold-dim: #8a6d2f;
+  --gold-bright: #f0c060;
+  --red: #8b1a1a;
+  --red-bright: #c0392b;
+  --green: #2ecc71;
+  --dark: #0a0a08;
+  --dark2: #111110;
+  --dark3: #1a1a16;
+  --night-bg: #04060f;
+  --morning-bg: #1a0f00;
+  --paper-dim: #9e9070;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { width: 100%; height: 100%; overflow: hidden; background: var(--dark); font-family: 'VT323', monospace; color: var(--gold); }
+
+/* grain */
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999; opacity: 0.3;
+}
+
+/* ─── TOP BAR ─── */
+#top-bar {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 50px;
+  background: var(--dark2);
+  border-bottom: 1px dashed var(--gold-dim);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px;
+  z-index: 100;
+}
+
+#top-logo {
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+  font-size: 20px;
+  letter-spacing: 6px;
+  color: var(--gold-bright);
+}
+
+#round-info {
+  font-family: 'VT323', monospace;
+  font-size: 16px;
+  letter-spacing: 3px;
+  color: var(--gold-dim);
+}
+
+#phase-label {
+  font-family: 'VT323', monospace;
+  font-size: 16px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  animation: phasePulse 2s ease-in-out infinite;
+}
+
+@keyframes phasePulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+
+/* ─── GAME STAGE ─── */
+#game-stage {
+  position: fixed;
+  top: 50px; bottom: 40px;
+  left: 180px; right: 180px;
+  overflow: hidden;
+}
+
+/* ─── PHASE SCREENS ─── */
+.phase-screen {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+.phase-screen.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.phase-screen.hidden { display: none; }
+
+/* ─── PANEL BASE ─── */
+.phase-panel, .vote-panel {
+  position: relative;
+  border-top: 2px dashed var(--gold);
+  border-bottom: 2px dashed var(--gold);
+  border-left: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+  padding: 40px 60px;
+  text-align: center;
+  min-width: 400px;
+  max-width: 560px;
+  background: rgba(0,0,0,0.5);
+}
+
+.corner {
+  position: absolute;
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--gold);
+  pointer-events: none;
+}
+.corner.tl { top:-10px; left:-6px; }
+.corner.tr { top:-10px; right:-6px; }
+.corner.bl { bottom:-10px; left:-6px; }
+.corner.br { bottom:-10px; right:-6px; }
+
+.panel-title {
+  font-family: 'VT323', monospace;
+  font-size: 14px;
+  letter-spacing: 5px;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+/* ─── ROLE REVEAL ─── */
+.role-name-text {
+  font-family: 'Cinzel', serif;
+  font-size: 52px;
+  font-weight: 900;
+  letter-spacing: 6px;
+  color: var(--gold-bright);
+  text-shadow: 0 0 30px rgba(201,168,76,0.6);
+  margin-bottom: 14px;
+}
+.role-name-text.mafia { color: var(--red-bright); text-shadow: 0 0 30px rgba(192,57,43,0.6); }
+.role-name-text.civilian { color: var(--gold-bright); }
+
+.role-desc-text {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--paper-dim);
+  margin-bottom: 12px;
+}
+
+.role-ability-text {
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+
+.role-hide-timer {
+  font-size: 13px;
+  color: var(--gold-dim);
+  letter-spacing: 2px;
+}
+
+/* ─── NIGHT ─── */
+.night-panel {
+  width: 560px;
+  text-align: center;
+  position: relative;
+  z-index: 5;
+}
+
+.night-border-top, .night-border-bot {
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: var(--gold-dim);
+}
+
+.night-border-top { margin-bottom: 0; }
+.night-border-bot { margin-top: 0; }
+
+.night-content {
+  border-left: 2px solid var(--gold-dim);
+  border-right: 2px solid var(--gold-dim);
+  padding: 28px 40px;
+}
+
+.night-spacer { height: 20px; }
+
+.night-big {
+  font-family: 'Cinzel', serif;
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--gold-bright);
+}
+
+.night-big.alert-text { color: var(--red-bright); text-shadow: 0 0 20px rgba(192,57,43,0.5); }
+
+.night-sub {
+  font-family: 'VT323', monospace;
+  font-size: 28px;
+  letter-spacing: 6px;
+  color: var(--red-bright);
+  margin-top: 8px;
+  animation: phasePulse 1s ease-in-out infinite;
+}
+
+.kill-timer-wrap {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.kill-timer-label {
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: var(--gold-dim);
+}
+
+.kill-timer-num {
+  font-size: 60px;
+  color: var(--red-bright);
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(192,57,43,0.5);
+}
+
+/* Kill targets */
+#kill-targets {
+  margin-top: 28px;
+  text-align: center;
+  z-index: 5;
+  position: relative;
+}
+
+.kill-targets-label {
+  font-size: 14px;
+  letter-spacing: 4px;
+  color: var(--gold-dim);
+  margin-bottom: 14px;
+}
+
+#kill-target-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.kill-target-btn {
+  position: relative;
+  border-top: 2px dashed var(--gold-dim);
+  border-bottom: 2px dashed var(--gold-dim);
+  border-left: 2px solid var(--gold-dim);
+  border-right: 2px solid var(--gold-dim);
+  padding: 8px 20px;
+  cursor: pointer;
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  transition: all 0.2s;
+}
+
+.kill-target-btn:hover {
+  border-color: var(--red-bright);
+  color: var(--red-bright);
+  box-shadow: 0 0 12px rgba(192,57,43,0.4);
+}
+
+.kill-target-btn.selected {
+  background: rgba(192,57,43,0.1);
+  border-color: var(--red-bright);
+  color: var(--red-bright);
+}
+
+/* Night stars */
+.night-stars {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 1;
+}
+
+/* ─── MORNING ─── */
+#phase-morning { background: linear-gradient(180deg, #100800 0%, #200d00 100%); }
+
+.morning-wrap { text-align: center; }
+
+.morning-sun {
+  font-size: 64px;
+  display: block;
+  margin-bottom: 24px;
+  filter: drop-shadow(0 0 20px rgba(255,200,50,0.6));
+  animation: sunRise 1.5s ease forwards;
+}
+
+@keyframes sunRise {
+  from { transform: translateY(30px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+.morning-panel {
+  position: relative;
+  border-top: 2px dashed var(--gold);
+  border-bottom: 2px dashed var(--gold);
+  border-left: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+  padding: 36px 60px;
+  max-width: 500px;
+  background: rgba(0,0,0,0.4);
+}
+
+.morning-title {
+  font-size: 13px;
+  letter-spacing: 6px;
+  color: var(--gold);
+}
+
+.morning-event-text {
+  font-family: 'IM Fell English', serif;
+  font-size: 22px;
+  color: var(--paper-dim);
+  line-height: 1.5;
+  margin: 16px 0 24px;
+  min-height: 60px;
+}
+
+.morning-timer-wrap { text-align: center; }
+.morning-timer-label {
+  font-size: 13px; letter-spacing: 4px; color: var(--gold-dim);
+}
+.morning-countdown-num {
+  font-size: 44px; color: var(--gold-bright); line-height: 1;
+}
+
+/* ─── VOTING ─── */
+.vote-sub {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--paper-dim);
+  margin-bottom: 24px;
+}
+
+#vote-list { margin-bottom: 20px; }
+
+.vote-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  margin-bottom: 8px;
+  border: 1px dashed var(--gold-dim);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.vote-entry:hover { border-color: var(--gold); background: rgba(201,168,76,0.05); }
+.vote-entry.voted { border-color: var(--red-bright); background: rgba(192,57,43,0.1); }
+
+.vote-entry-name {
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: var(--gold);
+}
+
+.vote-count-badge {
+  font-size: 14px;
+  color: var(--gold-dim);
+  letter-spacing: 2px;
+}
+
+.vote-timer-bar-track {
+  background: var(--dark3);
+  height: 4px;
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+.vote-timer-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-dim), var(--gold-bright));
+  transition: width 1s linear;
+}
+
+#vote-timer-text {
+  font-size: 14px; letter-spacing: 3px; color: var(--gold-dim); text-align: center;
+}
+
+/* ─── GAME OVER ─── */
+.gameover-wrap { text-align: center; }
+
+.winner-banner {
+  font-family: 'Cinzel', serif;
+  font-size: 52px;
+  font-weight: 900;
+  letter-spacing: 6px;
+  color: var(--gold-bright);
+  text-shadow: 0 0 40px rgba(201,168,76,0.6);
+  margin-bottom: 8px;
+  animation: popIn 0.8s ease;
+}
+
+.winner-banner.mafia-wins { color: var(--red-bright); text-shadow: 0 0 40px rgba(192,57,43,0.6); }
+
+.winner-sub {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--paper-dim);
+  margin-bottom: 32px;
+}
+
+.gameover-roles {
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: var(--gold-dim);
+  margin-bottom: 32px;
+  line-height: 1.8;
+}
+
+.mafia-btn-go {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 70px;
+  border-top: 2px dashed var(--gold);
+  border-bottom: 2px dashed var(--gold);
+  border-left: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.mafia-btn-go:hover {
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 16px rgba(201,168,76,0.4);
+}
+.mafia-btn-go .btn-label {
+  font-family: 'VT323', monospace;
+  font-size: 24px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  pointer-events: none;
+}
+
+@keyframes popIn {
+  from { opacity:0; transform: scale(0.7); }
+  to   { opacity:1; transform: scale(1); }
+}
+
+/* ─── PLAYER STATUS BAR ─── */
+#player-status-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 40px;
+  background: var(--dark2);
+  border-top: 1px dashed var(--gold-dim);
+  display: flex; align-items: center; justify-content: center;
+  gap: 24px;
+  font-family: 'VT323', monospace;
+  font-size: 16px;
+  letter-spacing: 3px;
+  z-index: 100;
+}
+
+#my-status-name { color: var(--gold); }
+.status-role { color: var(--red-bright); }
+.status-alive { color: var(--green); }
+.status-dead  { color: var(--gold-dim); text-decoration: line-through; }
+
+/* ─── ALIVE SIDEBAR ─── */
+#alive-sidebar {
+  position: fixed;
+  top: 60px;
+  right: 12px;
+  width: 160px;
+  max-height: calc(100vh - 110px);
+  border-top: 2px dashed var(--gold-dim);
+  border-bottom: 2px dashed var(--gold-dim);
+  border-left: 2px solid var(--gold-dim);
+  border-right: 2px solid var(--gold-dim);
+  overflow-y: auto;
+  z-index: 50;
+  background: rgba(0,0,0,0.6);
+}
+
+.sidebar-header {
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: var(--gold-dim);
+  padding: 8px 12px 6px;
+  border-bottom: 1px dashed var(--dark3);
+}
+
+.sidebar-player {
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: var(--gold);
+  padding: 5px 12px;
+  border-bottom: 1px dotted var(--dark3);
+}
+
+.sidebar-player.dead {
+  color: var(--gold-dim);
+  text-decoration: line-through;
+  opacity: 0.4;
+}

@@ -1,0 +1,264 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Cinzel:wght@400;700;900&family=IM+Fell+English:ital@0;1&display=swap');
+
+:root {
+  --gold: #c9a84c;
+  --gold-dim: #8a6d2f;
+  --gold-bright: #f0c060;
+  --red: #c0392b;
+  --dark: #0a0a08;
+  --dark2: #111110;
+  --paper-dim: #9e9070;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  background: var(--dark);
+  font-family: 'VT323', monospace;
+  color: var(--gold);
+  overflow: hidden;
+  cursor: crosshair;
+}
+
+/* grain */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999; opacity: 0.35;
+}
+
+/* vignette */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.9) 100%);
+  pointer-events: none; z-index: 9998;
+}
+
+/* Background watermark logo */
+#bg-logo {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  font-family: 'Cinzel', serif;
+  font-size: 180px;
+  font-weight: 900;
+  color: rgba(201,168,76,0.03);
+  text-align: center;
+  line-height: 0.85;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+  letter-spacing: 10px;
+}
+
+/* ─── STAGE ─── */
+#credits-stage {
+  position: fixed; inset: 0;
+  overflow: hidden;
+  z-index: 10;
+}
+
+#credits-scroll {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  text-align: center;
+  /* Animation controlled by JS */
+  top: 100vh;
+  padding-bottom: 200px;
+}
+
+/* ─── CONTENT ─── */
+.credits-title {
+  font-family: 'Cinzel', serif;
+  font-size: 52px;
+  font-weight: 900;
+  letter-spacing: 10px;
+  color: var(--gold-bright);
+  text-shadow: 0 0 30px rgba(201,168,76,0.5);
+  margin: 20px 0 8px;
+}
+
+.credits-subtitle {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--paper-dim);
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+}
+
+.credits-divider {
+  font-family: 'VT323', monospace;
+  color: var(--gold-dim);
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin: 18px 0;
+  opacity: 0.6;
+}
+
+.credits-divider.small {
+  font-size: 11px;
+  margin: 12px 0;
+  opacity: 0.35;
+}
+
+.credits-section {
+  margin: 20px 0;
+}
+
+.credits-role {
+  font-family: 'VT323', monospace;
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.credits-name {
+  font-family: 'Cinzel', serif;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--gold-bright);
+}
+
+.credits-sub {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--paper-dim);
+  margin-top: 3px;
+}
+
+.credits-deco {
+  font-size: 20px;
+  color: var(--gold-dim);
+  letter-spacing: 12px;
+  margin: 20px 0;
+}
+
+/* AI Disclaimer */
+.credits-disclaimer {
+  margin: 28px 0;
+  padding: 16px;
+  border: 1px dashed var(--red);
+}
+
+.disclaimer-label {
+  font-family: 'VT323', monospace;
+  font-size: 16px;
+  letter-spacing: 4px;
+  color: var(--red);
+  margin-bottom: 8px;
+}
+
+.disclaimer-text {
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--red);
+  letter-spacing: 2px;
+  text-shadow: 0 0 12px rgba(192,57,43,0.5);
+}
+
+.disclaimer-sub {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: #e07060;
+  margin-top: 6px;
+  opacity: 0.7;
+}
+
+/* End logo */
+.credits-end-logo {
+  margin: 32px 0 20px;
+}
+
+.end-logo-text {
+  font-family: 'Cinzel', serif;
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: 10px;
+  color: var(--gold-bright);
+  opacity: 0.5;
+  line-height: 0.9;
+}
+
+.end-logo-sub {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 12px;
+  color: var(--paper-dim);
+  margin-top: 10px;
+  letter-spacing: 2px;
+  opacity: 0.6;
+}
+
+/* ─── BACK BUTTON ─── */
+#btn-back {
+  position: fixed;
+  top: 24px;
+  left: 30px;
+  width: 130px;
+  height: 50px;
+  border-top: 2px dashed var(--gold);
+  border-bottom: 2px dashed var(--gold);
+  border-left: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  transition: all 0.2s;
+}
+
+#btn-back:hover {
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 12px rgba(201,168,76,0.4);
+}
+
+.btn-label {
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  pointer-events: none;
+}
+
+.corner {
+  position: absolute;
+  font-family: monospace;
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--gold);
+  pointer-events: none;
+}
+.corner.tl { top: -10px; left: -5px; }
+.corner.tr { top: -10px; right: -5px; }
+.corner.bl { bottom: -10px; left: -5px; }
+.corner.br { bottom: -10px; right: -5px; }
+
+/* Progress bar */
+#progress-bar-wrap {
+  position: fixed;
+  bottom: 0; left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--dark2);
+  z-index: 100;
+}
+
+#progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gold-dim), var(--gold-bright));
+  transition: width 0.1s linear;
+}

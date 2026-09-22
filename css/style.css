@@ -1,0 +1,432 @@
+/* =============================================
+   MAFIA WARS — MAIN STYLESHEET
+   Dark, vintage crime thriller aesthetic
+   Font: VT323 (monospace terminal) + Cinzel
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Cinzel:wght@400;700;900&family=IM+Fell+English:ital@0;1&display=swap');
+
+:root {
+  --gold: #c9a84c;
+  --gold-dim: #8a6d2f;
+  --gold-bright: #f0c060;
+  --red: #8b1a1a;
+  --red-bright: #c0392b;
+  --dark: #0a0a08;
+  --dark2: #111110;
+  --dark3: #1a1a16;
+  --paper: #d4c9a8;
+  --paper-dim: #9e9070;
+  --shadow: rgba(0,0,0,0.8);
+  --btn-width: 180px;
+  --btn-height: 90px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--dark);
+  font-family: 'VT323', monospace;
+  color: var(--gold);
+  cursor: crosshair;
+}
+
+/* Grain overlay */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999; opacity: 0.35;
+}
+
+/* Vignette */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.85) 100%);
+  pointer-events: none; z-index: 9998;
+}
+
+/* ====================== LOGO ====================== */
+#logo-wrap {
+  position: absolute;
+  top: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  animation: fadeInDown 1s ease forwards;
+}
+
+#logo-border {
+  position: relative;
+  border-top: 2px dashed var(--gold);
+  border-bottom: 2px dashed var(--gold);
+  border-left: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+  padding: 18px 48px;
+  min-width: 360px;
+  text-align: center;
+}
+
+#logo-top-line, #logo-bottom-line {
+  font-family: 'VT323', monospace;
+  color: var(--gold-dim);
+  font-size: 14px;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+#logo-title {
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+  font-size: 56px;
+  letter-spacing: 8px;
+  color: var(--gold-bright);
+  text-shadow: 0 0 20px rgba(201,168,76,0.5), 0 0 60px rgba(201,168,76,0.2);
+  line-height: 1.1;
+  margin: 6px 0 4px;
+}
+
+#logo-subtitle {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--paper-dim);
+  letter-spacing: 3px;
+  margin-bottom: 6px;
+}
+
+/* ====================== BUTTONS ====================== */
+.mafia-btn {
+  position: absolute;
+  width: var(--btn-width);
+  height: var(--btn-height);
+  border-top: 2px dashed var(--gold);
+  border-bottom: 2px dashed var(--gold);
+  border-left: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+  user-select: none;
+}
+
+.mafia-btn:hover {
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 18px rgba(201,168,76,0.4), inset 0 0 18px rgba(201,168,76,0.05);
+}
+
+.mafia-btn:hover .btn-label {
+  color: var(--gold-bright);
+  text-shadow: 0 0 12px rgba(240,192,96,0.8);
+}
+
+.mafia-btn:active {
+  transform: scale(0.97);
+}
+
+.mafia-btn.wide {
+  width: 320px;
+}
+
+.mafia-btn.small {
+  width: 140px;
+  height: 54px;
+  position: relative;
+}
+
+.btn-label {
+  font-family: 'VT323', monospace;
+  font-size: 28px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  pointer-events: none;
+}
+
+/* Corner decorations */
+.corner {
+  position: absolute;
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--gold);
+  line-height: 1;
+  pointer-events: none;
+}
+.corner.tl { top: -10px; left: -6px; }
+.corner.tr { top: -10px; right: -6px; }
+.corner.bl { bottom: -10px; left: -6px; }
+.corner.br { bottom: -10px; right: -6px; }
+
+/* Logo corners are bigger */
+#logo-border .corner {
+  font-size: 20px;
+}
+#logo-border .corner.tl { top: -14px; left: -8px; }
+#logo-border .corner.tr { top: -14px; right: -8px; }
+#logo-border .corner.bl { bottom: -14px; left: -8px; }
+#logo-border .corner.br { bottom: -14px; right: -8px; }
+
+/* ====================== BUTTON POSITIONS ====================== */
+#btn-start {
+  bottom: 200px;
+  left: 200px;
+  animation: fadeInLeft 1.2s ease 0.4s both;
+}
+
+#btn-credits {
+  bottom: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: fadeInUp 1.2s ease 0.5s both;
+}
+
+#btn-credits:hover {
+  transform: translateX(-50%) scale(1.02);
+}
+#btn-credits:active {
+  transform: translateX(-50%) scale(0.98);
+}
+
+/* ====================== PLAYER LIST ====================== */
+#player-list-panel {
+  position: absolute;
+  bottom: 200px;
+  right: 200px;
+  width: 220px;
+  min-height: 90px;
+  max-height: 340px;
+  border-top: 2px dashed var(--gold);
+  border-bottom: 2px dashed var(--gold);
+  border-left: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+  overflow: hidden;
+  z-index: 10;
+  animation: fadeInRight 1.2s ease 0.4s both;
+}
+
+#player-list-panel .corner { color: var(--gold); }
+
+#player-list-header {
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: var(--gold-bright);
+  padding: 10px 14px 4px;
+  border-bottom: 1px dashed var(--gold-dim);
+}
+
+#player-list-items {
+  overflow-y: auto;
+  max-height: 260px;
+  padding: 6px 0;
+}
+
+.player-entry {
+  padding: 5px 14px 3px;
+  border-bottom: 1px dotted var(--dark3);
+}
+
+.player-entry:last-child { border-bottom: none; }
+
+.player-name {
+  font-family: 'VT323', monospace;
+  font-size: 17px;
+  color: var(--gold);
+}
+
+.player-name .host-tag {
+  color: var(--red-bright);
+  font-size: 13px;
+  margin-left: 4px;
+}
+
+.player-name .you-tag {
+  color: #6fc;
+  font-size: 13px;
+  margin-left: 4px;
+}
+
+.player-motto {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 12px;
+  color: var(--paper-dim);
+  padding-left: 6px;
+}
+
+.player-bot .player-name { color: var(--gold-dim); }
+
+.player-loading {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  color: var(--gold-dim);
+  font-size: 13px;
+  padding: 12px 14px;
+}
+
+/* ====================== MODAL ====================== */
+#modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+#modal-overlay.hidden { display: none; }
+
+#modal-box {
+  position: relative;
+  width: 400px;
+  background: var(--dark2);
+  border-top: 2px dashed var(--gold);
+  border-bottom: 2px dashed var(--gold);
+  border-left: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+  padding: 36px 36px 30px;
+  animation: popIn 0.3s ease;
+}
+
+#modal-box .corner { font-size: 20px; }
+#modal-box .corner.tl { top: -14px; left: -8px; }
+#modal-box .corner.tr { top: -14px; right: -8px; }
+#modal-box .corner.bl { bottom: -14px; left: -8px; }
+#modal-box .corner.br { bottom: -14px; right: -8px; }
+
+#modal-title {
+  font-family: 'Cinzel', serif;
+  font-size: 30px;
+  letter-spacing: 6px;
+  color: var(--gold-bright);
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+#modal-subtitle {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  color: var(--paper-dim);
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+.modal-field {
+  margin-bottom: 20px;
+}
+
+.modal-field label {
+  display: block;
+  font-family: 'VT323', monospace;
+  font-size: 15px;
+  letter-spacing: 3px;
+  color: var(--gold-dim);
+  margin-bottom: 6px;
+}
+
+.modal-field input {
+  width: 100%;
+  background: var(--dark3);
+  border: 1px dashed var(--gold-dim);
+  color: var(--gold);
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  padding: 8px 12px;
+  outline: none;
+  letter-spacing: 2px;
+  transition: border-color 0.2s;
+}
+
+.modal-field input:focus {
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 8px rgba(201,168,76,0.3);
+}
+
+.modal-field input::placeholder { color: var(--gold-dim); opacity: 0.5; }
+
+.modal-btn-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+/* ====================== STATUS BAR ====================== */
+#status-bar {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'VT323', monospace;
+  font-size: 15px;
+  letter-spacing: 3px;
+  color: var(--gold-dim);
+  z-index: 20;
+  display: flex;
+  gap: 24px;
+}
+
+#player-role-tag {
+  color: var(--red-bright);
+}
+
+/* ====================== BACKGROUND DECO ====================== */
+.bg-lines {
+  position: fixed; inset: 0;
+  background-image: 
+    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(201,168,76,0.03) 60px),
+    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(201,168,76,0.03) 60px);
+  pointer-events: none; z-index: 1;
+}
+
+/* ====================== ANIMATIONS ====================== */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateX(-50%) translateY(-30px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateX(-50%) translateY(30px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.pulse { animation: pulse 1.5s ease-in-out infinite; }
+
+/* Host-only start button state */
+#btn-start.disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Scrollbar */
+#player-list-items::-webkit-scrollbar { width: 4px; }
+#player-list-items::-webkit-scrollbar-track { background: var(--dark); }
+#player-list-items::-webkit-scrollbar-thumb { background: var(--gold-dim); }
