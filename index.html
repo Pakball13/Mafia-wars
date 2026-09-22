@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAFIA WARS</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- LOGO -->
+  <div id="logo-wrap">
+    <div id="logo-border">
+      <span class="logo-corner tl">/</span>
+      <span class="logo-corner tr">\</span>
+      <span class="logo-corner bl">\</span>
+      <span class="logo-corner br">/</span>
+      <div id="logo-inner">
+        <div id="logo-top-line">_ _ _ _ _ _ _ _ _ _ _ _ _ _</div>
+        <div id="logo-title">MAFIA WARS</div>
+        <div id="logo-subtitle">Est. Anno Domini MMXXV</div>
+        <div id="logo-bottom-line">- - - - - - - - - - - - - -</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- START BUTTON (bottom-left, 200px from edge) -->
+  <div class="mafia-btn" id="btn-start">
+    <span class="corner tl">/</span>
+    <span class="corner tr">\</span>
+    <span class="corner bl">\</span>
+    <span class="corner br">/</span>
+    <div class="btn-label">START</div>
+  </div>
+
+  <!-- CREDITS BUTTON (bottom-center, 200px from bottom) -->
+  <div class="mafia-btn wide" id="btn-credits">
+    <span class="corner tl">/</span>
+    <span class="corner tr">\</span>
+    <span class="corner bl">\</span>
+    <span class="corner br">/</span>
+    <div class="btn-label">CREDITS</div>
+  </div>
+
+  <!-- PLAYER LIST (bottom-right, mirror of START button) -->
+  <div id="player-list-panel">
+    <span class="corner tl">/</span>
+    <span class="corner tr">\</span>
+    <span class="corner bl">\</span>
+    <span class="corner br">/</span>
+    <div id="player-list-header">PLAYERS:</div>
+    <div id="player-list-items">
+      <div class="player-loading">Waiting for players...</div>
+    </div>
+  </div>
+
+  <!-- USERNAME MODAL -->
+  <div id="modal-overlay" class="hidden">
+    <div id="modal-box">
+      <span class="corner tl">/</span>
+      <span class="corner tr">\</span>
+      <span class="corner bl">\</span>
+      <span class="corner br">/</span>
+      <div id="modal-title">WHO ARE YOU?</div>
+      <div id="modal-subtitle">— Enter your identity —</div>
+      <div class="modal-field">
+        <label>CODENAME</label>
+        <input type="text" id="input-username" maxlength="16" placeholder="Your alias..." />
+      </div>
+      <div class="modal-field">
+        <label>MOTTO</label>
+        <input type="text" id="input-motto" maxlength="32" placeholder="Your motto..." />
+      </div>
+      <div class="modal-btn-wrap">
+        <div class="mafia-btn small" id="btn-confirm-identity">
+          <span class="corner tl">/</span>
+          <span class="corner tr">\</span>
+          <span class="corner bl">\</span>
+          <span class="corner br">/</span>
+          <div class="btn-label">CONFIRM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATUS BAR -->
+  <div id="status-bar">
+    <span id="status-text">CONNECTING...</span>
+    <span id="player-role-tag"></span>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

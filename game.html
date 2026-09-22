@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MAFIA WARS — In Game</title>
+  <link rel="stylesheet" href="css/game.css"/>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div id="top-bar">
+    <div id="top-logo">MAFIA WARS</div>
+    <div id="round-info">ROUND <span id="round-num">1</span></div>
+    <div id="phase-label">LOADING...</div>
+  </div>
+
+  <!-- MAIN STAGE -->
+  <div id="game-stage">
+
+    <!-- ═══ PHASE: ROLE REVEAL ═══ -->
+    <div class="phase-screen hidden" id="phase-role-reveal">
+      <div class="phase-panel">
+        <span class="corner tl">/</span><span class="corner tr">\</span>
+        <span class="corner bl">\</span><span class="corner br">/</span>
+        <div class="panel-title">YOUR ROLE</div>
+        <div id="role-name" class="role-name-text">???</div>
+        <div id="role-desc" class="role-desc-text"></div>
+        <div id="role-ability" class="role-ability-text"></div>
+        <div class="role-hide-timer">Role hidden in <span id="role-timer">5</span>s</div>
+      </div>
+    </div>
+
+    <!-- ═══ PHASE: NIGHT — CIVILIAN ═══ -->
+    <div class="phase-screen hidden" id="phase-night-civ">
+      <div class="night-panel">
+        <div class="night-border-top">⫭ - - - - - - - - - - - - - - - - - - - - ⫬</div>
+        <div class="night-content">
+          <div class="night-spacer"></div>
+          <div class="night-big">Night, Night</div>
+          <div class="night-spacer"></div>
+        </div>
+        <div class="night-border-bot">⫦ - - - - - - - - - - - - - - - - - - - - ⫣</div>
+      </div>
+      <div class="night-stars" id="night-stars-civ"></div>
+    </div>
+
+    <!-- ═══ PHASE: NIGHT — MAFIA ═══ -->
+    <div class="phase-screen hidden" id="phase-night-mafia">
+      <div class="night-panel mafia-night">
+        <div class="night-border-top">⫭ - - - - - - - - - - - - - - - - - - - - ⫬</div>
+        <div class="night-content">
+          <div class="night-big alert-text">EVERYONE'S ASLEEP</div>
+          <div class="night-sub">STRIKE NOW!</div>
+          <div id="kill-timer-wrap">
+            <div class="kill-timer-label">DECIDE IN</div>
+            <div id="kill-timer" class="kill-timer-num">20</div>
+            <div class="kill-timer-label">SECONDS</div>
+          </div>
+        </div>
+        <div class="night-border-bot">⫦ - - - - - - - - - - - - - - - - - - - - ⫣</div>
+      </div>
+
+      <!-- Target list -->
+      <div id="kill-targets">
+        <div class="kill-targets-label">CHOOSE YOUR VICTIM:</div>
+        <div id="kill-target-list"></div>
+      </div>
+
+      <div class="night-stars" id="night-stars-mafia"></div>
+    </div>
+
+    <!-- ═══ PHASE: MORNING ANNOUNCEMENT ═══ -->
+    <div class="phase-screen hidden" id="phase-morning">
+      <div class="morning-wrap">
+        <div class="morning-sun" id="morning-sun">☀</div>
+        <div class="morning-panel">
+          <span class="corner tl">/</span><span class="corner tr">\</span>
+          <span class="corner bl">\</span><span class="corner br">/</span>
+          <div class="panel-title morning-title">— MORNING HAS COME —</div>
+          <div id="morning-event" class="morning-event-text"></div>
+          <div class="morning-timer-wrap">
+            <div class="morning-timer-label">VOTING BEGINS IN</div>
+            <div id="morning-countdown" class="morning-countdown-num">15</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ PHASE: VOTING ═══ -->
+    <div class="phase-screen hidden" id="phase-voting">
+      <div class="vote-panel">
+        <span class="corner tl">/</span><span class="corner tr">\</span>
+        <span class="corner bl">\</span><span class="corner br">/</span>
+        <div class="panel-title">WHO IS SUSPICIOUS?</div>
+        <div class="vote-sub">Cast your vote — the town decides</div>
+        <div id="vote-list"></div>
+        <div id="vote-timer-wrap">
+          <div class="vote-timer-bar-track">
+            <div id="vote-timer-bar" class="vote-timer-bar-fill"></div>
+          </div>
+          <div id="vote-timer-text">Time to vote: 30s</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ PHASE: GAME OVER ═══ -->
+    <div class="phase-screen hidden" id="phase-gameover">
+      <div class="gameover-wrap">
+        <div id="winner-banner" class="winner-banner">CIVILIANS WIN</div>
+        <div id="winner-sub" class="winner-sub">The mafia has been brought to justice</div>
+        <div class="gameover-roles" id="gameover-roles"></div>
+        <div class="mafia-btn-go" id="btn-play-again">
+          <span class="corner tl">/</span><span class="corner tr">\</span>
+          <span class="corner bl">\</span><span class="corner br">/</span>
+          <div class="btn-label">PLAY AGAIN</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /game-stage -->
+
+  <!-- PLAYER STATUS BAR (persistent) -->
+  <div id="player-status-bar">
+    <span id="my-status-name">???</span>
+    <span id="my-status-role" class="status-role"></span>
+    <span id="my-status-alive" class="status-alive">ALIVE</span>
+  </div>
+
+  <!-- ALIVE PLAYERS SIDEBAR -->
+  <div id="alive-sidebar">
+    <div class="sidebar-header">ALIVE</div>
+    <div id="alive-list"></div>
+  </div>
+
+  <script src="js/game.js"></script>
+</body>
+</html>

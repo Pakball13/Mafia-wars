@@ -1,0 +1,8 @@
+# Enable URL rewriting
+RewriteEngine On
+# Allow direct access to api.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# Route all other requests to index.php or your main entry point
+# Adjust this if your entry point is different
+RewriteRule ^(.*)$ index.html [L,QSA]
